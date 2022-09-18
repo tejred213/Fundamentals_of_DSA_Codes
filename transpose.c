@@ -119,4 +119,4 @@ display(a,row,col);
 compact(a,b,row,col);
 transpose(a,b,row,col);
 }
-
+}
