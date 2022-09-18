@@ -50,7 +50,7 @@ for(j=0;j<col;j++)
 {
 printf("%d \t",&c[i][j]);
 }
-printf("\n")
+printf("\n");
 }
 }
 
