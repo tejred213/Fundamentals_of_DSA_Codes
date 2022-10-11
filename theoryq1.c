@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 int getCeilingValue(int *arr, int size, int num)
 {
     if (num <= arr[0])
