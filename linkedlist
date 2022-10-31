@@ -7,7 +7,7 @@ struct node
     struct node *nextptr,*value;    //Address of the next node
 }*stnode;
 
-void createNodeList(int n);  // function to create the list
+void createNodeList(int n);  // function to create the list  //warning
 void insertNodeList(int n);  // function to insert elements in list
 void deleteNodeList(int n);  // function to delete elements in list
 void displayList();         // function to display the list
@@ -30,10 +30,10 @@ while (option <5)
     switch (option)
     {
       case 1:
-        insertNodeList();
+        insertNodeList();   //error
         break;
       case 2:
-        deleteNodeList();
+        deleteNodeList();   //error
         break;
       case 3:
         displayList();
@@ -109,7 +109,7 @@ void insertNodeList(int n)
 void deleteNodeList(int n)
 {
 	int num,i,pos;
-	struct node *tmp, *fnNode , *prevnode;
+	struct node *tmp, *fnNode , *prevnode;    //warning
 	printf("\n Enter position for delete element :\n");
 	scanf("%d",&pos);
 	if (pos>0 && pos <=num)
