@@ -3,13 +3,13 @@
 
 struct node
 {
-    int num;                        //Data of the node
-    struct node *nextptr,*value;    //Address of the next node
+    int num,value;                        //Data of the node
+    struct node *nextptr;    //Address of the next node
 }*stnode;
 
-void createNodeList(int n);  // function to create the list  //warning
-void insertNodeList(int n);  // function to insert elements in list
-void deleteNodeList(int n);  // function to delete elements in list
+void createNodeList();  // function to create the list  //warning
+void insertNodeList();  // function to insert elements in list
+void deleteNodeList();  // function to delete elements in list
 void displayList();         // function to display the list
 
 int main()
@@ -43,10 +43,10 @@ while (option <5)
     }
     return 0;
 }
-void createNodeList(int n)
+void createNodeList()
 {
     struct node *fnNode, *tmp;
-    int num, i;
+    int num, i,n;
     stnode = (struct node *)malloc(sizeof(struct node));
 
     if(stnode == NULL) //check whether the fnNode is NULL and if so no memory allocation
@@ -55,8 +55,7 @@ void createNodeList(int n)
     }
     else
     {
-// reads data for the node through keyboard
-
+                    // reads data for the node through keyboard
         printf(" Input data for node 1 : ");
         scanf("%d", &num);
         stnode->num = num;
@@ -86,10 +85,10 @@ void createNodeList(int n)
     }
 }
 
-void insertNodeList(int n)
+void insertNodeList()
 {
-	int data;
-	struct node *tmp, *firstnode,*headnode;
+	int data,n;
+	struct node *tmp, *firstnode,*headnode,*value;
 	printf("\n Enter the element for insertion of list : \n");
 	scanf("%d",&data);
 	stnode = (struct node *)malloc(sizeof(struct node));
@@ -106,7 +105,7 @@ void insertNodeList(int n)
 	headnode=tmp;
 	fflush(stdin);
 }
-void deleteNodeList(int n)
+void deleteNodeList()
 {
 	int num,i,pos;
 	struct node *tmp, *fnNode , *prevnode;    //warning
