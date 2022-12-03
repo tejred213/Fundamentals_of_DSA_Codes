@@ -1,431 +1,379 @@
-// C program for the all operations in
-// the Singly Linked List
 #include <stdio.h>
 #include <stdlib.h>
-// Linked List Node
-struct node {
-	int info;
-	struct node* link;
+
+struct Node
+{
+    int data;
+    char name[30];
+    struct Node *next;
 };
-struct node* start = NULL;
 
-// Function to create list with n nodes initially
-void createList()
+// CREATING A LINK-LIST
+void create(struct Node *head)
 {
-	if (start == NULL) {
-		int n;
-		printf("\nEnter the number of nodes: ");
-		scanf("%d", &n);
-		if (n != 0) {
-			int data;
-			struct node* newnode;
-			struct node* temp;
-			newnode = malloc(sizeof(struct node));
-			start = newnode;
-			temp = start;
-			printf("\nEnter number to"
-				" be inserted : ");
-			scanf("%d", &data);
-			start->info = data;
+    // TEMPORARY TEMP REFERENCE IS CREATED FOR HEADG
+    struct Node *temp = head;
+    struct Node *curr;
+    char choice;
+    // label:
+    do
+    {
+        curr = (struct Node *)malloc(sizeof(struct Node));
 
-			for (int i = 2; i <= n; i++) {
-				newnode = malloc(sizeof(struct node));
-				temp->link = newnode;
-				printf("\nEnter number to"
-					" be inserted : ");
-				scanf("%d", &data);
-				newnode->info = data;
-				temp = temp->link;
-			}
-		}
-		printf("\nThe list is created\n");
-	}
-	else
-		printf("\nThe list is already created\n");
+        printf("Enter the Name:\n");
+        scanf("%s", curr->name);
+        printf("Enter the Roll_no:\n");
+        scanf("%d", &curr->data);
+
+        curr->next = NULL;
+        temp->next = curr;
+        temp = curr;
+
+        printf("\n\nEnter y to print more\nEnter s to Save\n");
+        scanf(" %c", &choice);
+
+    } while (choice == 'y');
+
+    
 }
 
-// Function to insert at the front
-// of the linked list
-void insertAtFront()
+// DISPLAY
+void display(struct Node *head)
 {
-	int data;
-	struct node* temp;
-	temp = malloc(sizeof(struct node));
-	printf("\nEnter number to"
-		" be inserted : ");
-	scanf("%d", &data);
-	temp->info = data;
+    struct Node *curr;
+    if (head->next == NULL)
+    {
+        printf("List is Empty\n");
+    }
+    else
+    {
+        curr = head->next;
+        printf("\n\nAddress \t Roll_no\t Name\t\t Address_Next\t Role\n");
+        while (curr != NULL)
+        {
+            printf("%p\t %d\t\t %s\t\t %p\t", curr, curr->data, curr->name, curr->next);
+            if (curr == head->next)
+            {
+                printf(" President\n");
+            }
 
-	// Pointer of temp will be
-	// assigned to start
-	temp->link = start;
-	start = temp;
-}
+            else if (curr == head->next && curr->next == NULL)
+            {
+                printf(" President + Secretary\n");
+            }
 
-// Function to insert at the end of
-// the linked list
-void insertAtEnd()
-{
-	int data;
-	struct node *temp, *head;
-	temp = malloc(sizeof(struct node));
+            else if (curr->next == NULL)
+            {
+                printf(" Secretary\n");
+            }
 
-	// Enter the number
-	printf("\nEnter number to"
-		" be inserted : ");
-	scanf("%d", &data);
+            else
+            {
+                printf(" Member\n");
+            }
 
-	// Changes links
-	temp->link = 0;
-	temp->info = data;
-	head = start;
-	while (head->link != NULL) {
-		head = head->link;
-	}
-	head->link = temp;
-}
-
-// Function to insert at any specified
-// position in the linked list
-void insertAtPosition()
-{
-	struct node *temp, *newnode;
-	int pos, data, i = 1;
-	newnode = malloc(sizeof(struct node));
-
-	// Enter the position and data
-	printf("\nEnter position and data :");
-	scanf("%d %d", &pos, &data);
-
-	// Change Links
-	temp = start;
-	newnode->info = data;
-	newnode->link = 0;
-	while (i < pos - 1) {
-		temp = temp->link;
-		i++;
-	}
-	newnode->link = temp->link;
-	temp->link = newnode;
-}
-
-// Function to delete from the front
-// of the linked list
-void deleteFirst()
-{
-	struct node* temp;
-	if (start == NULL)
-		printf("\nList is empty\n");
-	else {
-		temp = start;
-		start = start->link;
-		free(temp);
-	}
-}
-
-// Function to delete from the end
-// of the linked list
-void deleteEnd()
-{
-	struct node *temp, *prevnode;
-	if (start == NULL)
-		printf("\nList is Empty\n");
-	else {
-		temp = start;
-		while (temp->link != 0) {
-			prevnode = temp;
-			temp = temp->link;
-		}
-		free(temp);
-		prevnode->link = 0;
-	}
-}
-
-// Function to delete from any specified
-// position from the linked list
-void deletePosition()
-{
-	struct node *temp, *position;
-	int i = 1, pos;
-
-	// If LL is empty
-	if (start == NULL)
-		printf("\nList is empty\n");
-
-	// Otherwise
-	else {
-		printf("\nEnter index : ");
-
-		// Position to be deleted
-		scanf("%d", &pos);
-		position = malloc(sizeof(struct node));
-		temp = start;
-
-		// Traverse till position
-		while (i < pos - 1) {
-			temp = temp->link;
-			i++;
-		}
-
-		// Change Links
-		position = temp->link;
-		temp->link = position->link;
-
-		// Free memory
-		free(position);
-	}
-}
-
-// Function to find the maximum element
-// in the linked list
-void maximum()
-{
-	int a[10];
-	int i;
-	struct node* temp;
-
-	// If LL is empty
-	if (start == NULL)
-		printf("\nList is empty\n");
-
-	// Otherwise
-	else {
-		temp = start;
-		int max = temp->info;
-
-		// Traverse LL and update the
-		// maximum element
-		while (temp != NULL) {
-
-			// Update the maximum
-			// element
-			if (max < temp->info)
-				max = temp->info;
-			temp = temp->link;
-		}
-		printf("\nMaximum number "
-			"is : %d ",
-			max);
-	}
-}
-
-// Function to traverse the linked list
-void traverse()
-{
-    struct node* temp;
-	
-    // List is empty
-    if (start == NULL)
-        printf("\nList is empty\n");
-	
-    // Else print the LL
-    else {
-        temp = start;
-        while (temp != NULL) {
-            printf("Data = %d\n", temp->info);
-            temp = temp->link;
+            curr = curr->next;
         }
     }
 }
-// Function to find the mean of the
-// elements in the linked list
-void mean()
+
+// LENGTH OF LINK-LIST
+int len(struct Node *head)
 {
-	int a[10];
-	int i;
-	struct node* temp;
-
-	// If LL is empty
-	if (start == NULL)
-		printf("\nList is empty\n");
-
-	// Otherwise
-	else {
-		temp = start;
-
-		// Stores the sum and count of
-		// element in the LL
-		int sum = 0, count = 0;
-		float m;
-
-		// Traverse the LL
-		while (temp != NULL) {
-
-			// Update the sum
-			sum = sum + temp->info;
-			temp = temp->link;
-			count++;
-		}
-
-		// Find the mean
-		m = sum / count;
-
-		// Print the mean value
-		printf("\nMean is %f ", m);
-	}
+    int i = 0;
+    struct Node *curr;
+    curr = head->next;
+    while (curr != NULL)
+    {
+        i++;
+        curr = curr->next;
+    }
+    return i;
 }
 
-// Function to sort the linked list
-// in ascending order
-void sort()
+// INSERTION IN LINK-LIST
+int insert(struct Node *head)
 {
-	struct node* current = start;
-	struct node* index = NULL;
-	int temp;
+    struct Node *curr = head;
+    int i = 1, pos;
+    struct Node *new_node;
 
-	// If LL is empty
-	if (start == NULL) {
-		return;
-	}
+    printf("Enter the Position:\n");
+    scanf("%d", &pos);
 
-	// Else
-	else {
+    new_node = (struct Node *)malloc(sizeof(struct Node));
+    printf("Enter the Name:\n");
+    scanf(" %s", new_node->name);
 
-		// Traverse the LL
-		while (current != NULL) {
-			index = current->link;
+    printf("Enter the Roll_no:\n");
+    scanf(" %d", &new_node->data);
 
-			// Traverse the LL nestedly
-			// and find the minimum
-			// element
-			while (index != NULL) {
-
-				// Swap with it the value
-				// at current
-				if (current->info > index->info) {
-					temp = current->info;
-					current->info = index->info;
-					index->info = temp;
-				}
-				index = index->link;
-			}
-
-			// Update the current
-			current = current->link;
-		}
-	}
+    int k = len(head);
+    if (pos > k + 1)
+    {
+        printf("Data can't be inserted\n");
+        return 0;
+    }
+    else
+    {
+        while (curr != NULL && i < pos)
+        {
+            i++;
+            curr = curr->next;
+        }
+        new_node->next = curr->next;
+        curr->next = new_node;
+        return 1;
+    }
 }
 
-// Function to reverse the linked list
-void reverseLL()
+int deletion(struct Node *head)
 {
-	struct node *t1, *t2, *temp;
-	t1 = t2 = NULL;
+    int pos;
+    printf("Enter the Position you want to delete\n");
+    scanf("%d", &pos);
 
-	// If LL is empty
-	if (start == NULL)
-		printf("List is empty\n");
+    struct Node *prev = head;
+    int counter = 1;
+    struct Node *curr = head->next;
+    int read = pos;
 
-	// Else
-	else {
+    int k = len(head);
+    if (k < pos)
+    {
+        printf("OOPS....\nData can't be Deleted");
+        return 0;
+    }
+    else
+    {
+        while (counter < pos && curr != NULL)
+        {
+            counter++;
+            prev = curr;
+            curr = curr->next;
+        }
 
-		// Traverse the LL
-		while (start != NULL) {
-
-			// reversing of points
-			t2 = start->link;
-			start->link = t1;
-			t1 = start;
-			start = t2;
-		}
-		start = t1;
-
-		// New head Node
-		temp = start;
-
-		printf("Reversed linked "
-			"list is : ");
-
-		// Print the LL
-		while (temp != NULL) {
-			printf("%d ", temp->info);
-			temp = temp->link;
-		}
-	}
+        struct Node *temp = curr;
+        prev->next = curr->next;
+        curr->next = NULL;
+        free(temp);
+    }
 }
 
-void lenlist()
+int Reverse(struct Node *head)
 {
-	int i;
-	struct node *curr,*H;
-	curr=H->link;
-	while(curr!=NULL)
-	{
-		i++;
-		curr=curr->link;
-	}
-	return(i);
+    struct Node *prev = NULL;
+    struct Node *curr = head->next;
+    while (curr != NULL)
+    {
+        struct Node *future = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = future;
+    }
+    head->next = prev;
+    return 1;
 }
 
-// Driver Code
+// SORTING OF LL
+int Sort(struct Node *head)
+{
+    int length = len(head);
+    struct Node *temp;
+    struct Node *curr;
+    struct Node *prev;
+    for (int i = 1; i <= length - 1; i++)
+    {
+        prev = head;
+        curr = head->next;
+
+        for (int j = 0; j < length - i; j++)
+        {
+            temp = curr->next;
+
+            if (curr->data > temp->data)
+            {
+                prev->next = temp;
+                curr->next = temp->next;
+                temp->next = curr;
+                prev = temp;
+            }
+            else
+            {
+                prev = curr;
+                curr = curr->next;
+            }
+        }
+    }
+    return 1;
+}
+
+int Merge(struct Node *head_1, struct Node *head_2)
+{
+    int flag;
+    struct Node *curr_1 = head_1->next;
+    struct Node *curr_2 = head_2->next;
+    struct Node *temp;
+
+    if (curr_1->data < curr_2->data)
+    {
+        temp = head_1;
+        int flag = 1;
+    }
+
+    else
+    {
+        temp = head_2;
+        int flag = 0;
+    }
+
+    while (curr_1 != NULL && curr_2 != NULL)
+    {
+        if (curr_1->data < curr_2->data)
+        {
+            temp->next = curr_1;
+            temp = curr_1;
+            curr_1 = curr_1->next;
+        }
+        else
+        {
+            temp->next = curr_2;
+            temp = curr_2;
+            curr_2 = curr_2->next;
+        }
+    }
+    if (curr_1 == NULL)
+    {
+        temp->next = curr_2;
+    }
+
+    if (curr_2 == NULL)
+    {
+        temp->next = curr_1;
+    }
+
+    if (flag == 1)
+    {
+
+        return 1;
+    }
+
+    else
+    {
+        return 2;
+    }
+}
+
+int Concetenate(struct Node *head_1, struct Node *head_2)
+{
+    struct Node *temp = head_1->next;
+    while (temp->next != NULL)
+    {
+        // head_1 = temp;
+        temp = temp->next;
+    }
+
+    if (temp->next == NULL)
+    {
+        temp->next = head_2->next;
+        free(head_2);
+    }
+        return 1;
+}
 int main()
 {
-	int choice;
-	while (1) {
+    struct Node *head;
+    head = (struct Node *)malloc(sizeof(struct Node));
+    head->next = NULL;
 
-		printf("\n\t1 To see list\n");
-		printf("\t2 For insertion at"
-			" starting\n");
-		printf("\t3 For insertion at"
-			" end\n");
-		printf("\t4 For insertion at "
-			"any position\n");
-		printf("\t5 For deletion of "
-			"first element\n");
-		printf("\t6 For deletion of "
-			"last element\n");
-		printf("\t7 For deletion of "
-			"element at any position\n");
-		printf("\t8 To find maximum among"
-			" the elements\n");
-		printf("\t9 To find mean of "
-			"the elements\n");
-		printf("\t10 To sort element\n");
-		printf("\t11 To reverse the "
-			"linked list\n");
-		printf("\t12 To exit\n");
-		printf("\t13 To print the length of the list\n");
-		printf("\nEnter Choice :\n");
-		scanf("%d", &choice);
+    create(head);
+    display(head);
 
-		switch (choice) {
-		
-		case 1:
-			insertAtFront();
-			break;
-		case 2:
-			insertAtEnd();
-			break;
-		case 3:
-			insertAtPosition();
-			break;
-		case 4:
-			deleteFirst();
-			break;
-		case 5:
-			deleteEnd();
-			break;
-		case 6:
-			deletePosition();
-			break;
-		case 7:
-			maximum();
-			break;
-		case 8:
-			mean();
-			break;
-		case 9:
-			sort();
-			break;
-		case 10:
-			reverseLL();
-			break;
-		case 11:
-			exit(1);
-			break;
-		default:
-			printf("Incorrect Choice\n");
-		}
-	}
-	return 0;
+    struct Node *head_2;
+    head_2 = (struct Node *)malloc(sizeof(struct Node));
+    head_2->next = NULL;
+
+    int choice, x, pos;
+
+label:
+    printf("\n\nEnter 1 for Insertion\nEnter 2 for Deletion\nEnter 3 for Reverse\nEnter 4 for Sort\nEnter 5 for Merging\nEnter 6 for Concentate\nEnter 0 to Exit\n");
+    scanf("%d", &choice);
+
+    int l = len(head);
+    printf("\nThere are %d Members & 2 Executives\n", l);
+
+    switch (choice)
+    {
+    case 0:
+        goto end;
+
+    case 1:
+        // POSITION IS ALREADY ACCEPTED INSIDE INSERT FUNCTION
+        x = insert(head);
+        printf("\nYeaa!!... the Element is successfully Inserted");
+        break;
+
+    case 2:
+        // POSITION IS ALREADY ACCEPTED INSIDE DELETE FUNCTION
+        x = deletion(head);
+        printf("\nYeaa!!... the Element is successfully Deleted");
+        break;
+
+    case 3:
+        // POSITION IS ALREDAY ACCEPTED IN REVERSE FUNCTION
+        x = Reverse(head);
+        printf("\nYeaa!!... the Link-List is successfully Reversed");
+        break;
+
+    case 4:
+        x = Sort(head);
+        printf("\nYeaa!!... the Link-List is successfully Sorted");
+        break;
+
+    case 5:
+        printf("Enter the second Link-list\n");
+        create(head_2);
+        // SORTING OF PREVIOUS & CURRENT LL IS NEEDED TO INSERT A NEW LL..
+        Sort(head);
+        Sort(head_2);
+        x = Merge(head, head_2);
+
+        printf("\nYeaa!!... the Link-List is successfully Merged");
+        break;
+    case 6:
+        printf("Enter the second Link-list\n");
+        create(head_2);
+        // SORTING OF PREVIOUS & CURRENT LL IS NEEDED TO INSERT A NEW LL..
+        x = Concetenate(head , head_2);
+
+        printf("\nYeaa!!... the Link-List is successfully Concenated");
+        break;
+
+    default:
+        break;
+    }
+
+    if (x == 1)
+    {
+        display(head);
+        goto label;
+    }
+    else if (x == 2)
+    {
+        display(head_2);
+
+        // SO NOW AFTER LABEL WE CAN PERFORM OPERATIONS AGAIN
+        head = head_2;
+
+        goto label;
+    }
+
+    else if (x == 0)
+    {
+        printf("Opps....Operation Failed");
+        goto label;
+    }
+
+end:
+    return 0;
 }
