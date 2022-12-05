@@ -1,3 +1,7 @@
+
+#WORKING CODE#
+# Also dont use same roll no.s, in searching they might repeat and ruin the output
+
 #include<stdio.h>
 
 struct student
