@@ -1,3 +1,5 @@
+// FAQ
+
 /*
  *C program to sort height(in cm) in ascending order using Bubble sort
  *and print both the given and the sorted array
