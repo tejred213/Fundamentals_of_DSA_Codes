@@ -62,7 +62,7 @@ if (i!=minpos)//n-1 ----> 3n^2-3n-n+1
 {
 temp=s[i];
 s[i]=s[minpos];
-s[minpos]=temp;0
+s[minpos]=temp;
 }
 }
 }
