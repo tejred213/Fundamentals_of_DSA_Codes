@@ -1,3 +1,4 @@
+#WORKING CODE
 #include <stdio.h>
 
 void accept(int a[10][10], int b[10][10], int row, int col)
