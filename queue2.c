@@ -1,6 +1,5 @@
 
-#WORKING CODE
-
+//WORKING CODE
 
 #include<stdio.h>
 #include<stdlib.h>
